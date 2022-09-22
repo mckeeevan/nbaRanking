@@ -114,35 +114,6 @@ func main() {
 	players = randomMatchup(players)
 	players = randomMatchup(players)
 	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
-	players = randomMatchup(players)
 
 	sort.Slice(players, func(i, j int) bool {
 		return players[i].elo < players[j].elo
@@ -151,6 +122,7 @@ func main() {
 	for _, v := range players {
 		fmt.Println(v.Name, "has an Elo of", v.elo)
 	}
+
 }
 
 func importJson() []player {
