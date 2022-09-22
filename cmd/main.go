@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math"
+	"math/rand"
 	"os"
+	"time"
 )
 
 const (
@@ -13,19 +15,38 @@ const (
 )
 
 func main() {
+
+	rand.Seed(time.Now().UnixNano())
 	players := importJson()
-	fmt.Println(players)
-	// make two sample players
-	playerOne := player{Name: "Nikola Jokic", Team: "Nuggets", elo: 1000, wins: 0, loses: 0}
-	playerTwo := player{Name: "Joel Embiid", Team: "76ers", elo: 1000, wins: 0, loses: 0}
-	// save their original scores
-	oldOne := playerOne.elo
-	oldTwo := playerTwo.elo
-	// run it with player one winning
-	playerOne, playerTwo = elo(playerOne, playerTwo, true)
-	// output scores
-	fmt.Printf("%s was ranked %d, but is now ranked %d\n", playerOne.Name, oldOne, playerOne.elo)
-	fmt.Printf("%s was ranked %d, but is now ranked %d\n", playerTwo.Name, oldTwo, playerTwo.elo)
+
+	one := rand.Intn(len(players))
+	two := rand.Intn(len(players))
+
+	if two == one {
+		two = rand.Intn(len(players))
+	}
+
+	fmt.Println(players[one])
+	fmt.Println(players[two])
+
+	var i int
+
+	fmt.Print("Player 1 or 2: ")
+	fmt.Scanln(&i)
+	if i == 1 {
+		players[one], players[two] = elo(players[one], players[two], true)
+		fmt.Println("You chose", players[one].Name, "as being better than", players[two].Name)
+		fmt.Println(players[one].Name, "is now ranked", players[one].elo)
+		fmt.Println(players[two].Name, "is now ranked", players[two].elo)
+	}
+	if i == 2 {
+		players[one], players[two] = elo(players[one], players[two], false)
+		fmt.Println("You chose", players[two].Name, "as being better than", players[one].Name)
+		fmt.Println(players[one].Name, "is now ranked", players[one].elo)
+		fmt.Println(players[two].Name, "is now ranked", players[two].elo)
+	}
+
+	players[one], players[two] = elo(players[one], players[two], true)
 
 }
 
@@ -132,6 +153,5 @@ func scoreChange(score, expectedScore float64, rating int, win bool) float64 {
 		return float64(rating) + float64(k)*(score-expectedScore)
 	}
 	// if they lose subract from their score
-	return float64(rating) - float64(k)*(score-expectedScore)
-
+	return float64(rating) - float64(k)*(score-expectedScore)ß
 }
