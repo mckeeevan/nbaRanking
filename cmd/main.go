@@ -7,6 +7,7 @@ import (
 	"math"
 	"math/rand"
 	"os"
+	"sort"
 	"time"
 )
 
@@ -14,40 +15,142 @@ const (
 	k = 32
 )
 
-func main() {
-
-	rand.Seed(time.Now().UnixNano())
-	players := importJson()
+func randomMatchup(players []player) []player {
 
 	one := rand.Intn(len(players))
 	two := rand.Intn(len(players))
-
-	if two == one {
+	for two == one {
 		two = rand.Intn(len(players))
 	}
 
 	fmt.Println(players[one])
 	fmt.Println(players[two])
-
-	var i int
-
+	var pick int
 	fmt.Print("Player 1 or 2: ")
-	fmt.Scanln(&i)
-	if i == 1 {
+	fmt.Scanln(&pick)
+
+	if pick == 1 {
 		players[one], players[two] = elo(players[one], players[two], true)
 		fmt.Println("You chose", players[one].Name, "as being better than", players[two].Name)
 		fmt.Println(players[one].Name, "is now ranked", players[one].elo)
 		fmt.Println(players[two].Name, "is now ranked", players[two].elo)
+		// fmt.Println(players)
 	}
-	if i == 2 {
+	if pick == 2 {
 		players[one], players[two] = elo(players[one], players[two], false)
 		fmt.Println("You chose", players[two].Name, "as being better than", players[one].Name)
 		fmt.Println(players[one].Name, "is now ranked", players[one].elo)
 		fmt.Println(players[two].Name, "is now ranked", players[two].elo)
+		// fmt.Println(players)
 	}
 
-	players[one], players[two] = elo(players[one], players[two], true)
+	return players
+}
 
+func main() {
+
+	rand.Seed(time.Now().UnixNano())
+	players := importJson()
+	var players2 []player
+	// players = append([]player(nil), players[:8]...)
+	for _, v := range players {
+		if v.Team == "Denver Nuggets" {
+			players2 = append(players2, v)
+		}
+	}
+	players = players2
+
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+	players = randomMatchup(players)
+
+	sort.Slice(players, func(i, j int) bool {
+		return players[i].elo < players[j].elo
+	})
+
+	for _, v := range players {
+		fmt.Println(v.Name, "has an Elo of", v.elo)
+	}
 }
 
 func importJson() []player {
@@ -93,28 +196,6 @@ type player struct {
 }
 
 /*
-
-
-    {
-      "Name": "Hassan Whiteside",
-      "Team": "Utah Jazz",
-      "Position": "C",
-      "Age": "32",
-      "Height": "7' 0\"",
-      "Height_i": "7.0",
-      "Weight": "265",
-      "College": "Marshall",
-      "Salary": "1669178"
-    }
-
-Import players
-
-Pick two players
-
-Ask the person who's better
-
-modify the scores
-
 get rid of the loser
 
 find someone else to rate against (with x score of the winner to keep it reasonble, 800?)
@@ -142,8 +223,8 @@ func elo(playerOne, playerTwo player, playerOneWin bool) (player, player) {
 
 func winOdds(rB, rA int) (float64, float64) {
 	// Update each players expected score
-	rAExpectedScore := 1.0 / (1.0 + math.Pow(10, (float64(rB)-float64(rA))/400.0))
-	rBExpectedScore := 1.0 / (1.0 + math.Pow(10, (float64(rA)-float64(rB))/400.0))
+	rAExpectedScore := 1.0 / (1.0 + math.Pow(10, (float64(rA)-float64(rB))/400.0))
+	rBExpectedScore := 1.0 / (1.0 + math.Pow(10, (float64(rB)-float64(rA))/400.0))
 	return rAExpectedScore, rBExpectedScore
 }
 
@@ -153,5 +234,5 @@ func scoreChange(score, expectedScore float64, rating int, win bool) float64 {
 		return float64(rating) + float64(k)*(score-expectedScore)
 	}
 	// if they lose subract from their score
-	return float64(rating) - float64(k)*(score-expectedScore)ß
+	return float64(rating) - float64(k)*(score-expectedScore)
 }
