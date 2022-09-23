@@ -52,7 +52,6 @@ func winOdds(playerOne, playerTwo importjson.Player) (importjson.Player, importj
 }
 
 func scoreChange(player importjson.Player, rating int, win bool) float64 {
-
 	if win {
 		// if they win add to their score
 		return float64(rating) + float64(kRate(player))*(1.0-player.ExpectedScore)
