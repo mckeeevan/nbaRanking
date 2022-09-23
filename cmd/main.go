@@ -14,20 +14,9 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	players := importjson.ImportJson("cmd/scoredPlayers.json")
-	//players := importjson.FirstImportJson("cmd/players.json")
+	// players := importjson.Ranked("cmd/scoredPlayers.json")
+	players := importjson.Initialize("cmd/players.json")
 
-	/*
-		var players2 []importjson.Player
-		for i, v := range players {
-			if v.Team == "Denver Nuggets" {
-				players2 = append(players2, players[i])
-
-			}
-		}
-		players = players2
-
-	*/
 	// players = append([]importjson.Player(nil), players[:5]...)
 
 	players = matchup.Random(players)
