@@ -3,7 +3,7 @@ package matchup
 import (
 	"fmt"
 	"math"
-	"math/rand"
+	"math/rand" 
 
 	"main.go/pkg/elo"
 	importjson "main.go/pkg/importJSON"
