@@ -79,39 +79,14 @@ func intialize(minutes, games float64) []importjson.Player {
 }
 
 func run(players []importjson.Player) {
-	players, match, winner, winCount, winChange := matchup.Random(players, matchup.Matchup{}, false, 0, true)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, match, winner, winCount, winChange = matchup.Random(players, match, winner, winCount, winChange)
-	players, _, _, _, _ = matchup.Random(players, match, winner, winCount, winChange)
+	initial := matchup.ModelData{Players: players, Match: matchup.Matchup{}, Winner: false, WinCount: 0, WinChange: true}
+	data := matchup.Random(initial)
+	data = matchup.Random(data)
+	data = matchup.Random(data)
+	data = matchup.Random(data)
+	data = matchup.Random(data)
+	data = matchup.Random(data)
+	data = matchup.Random(data)
 	// sort the slice
 	sort.Slice(players, func(i, j int) bool {
 		return players[i].Elo > players[j].Elo
@@ -122,12 +97,12 @@ func run(players []importjson.Player) {
 	fmt.Println()
 	fmt.Println()
 	fmt.Println()
-	for _, v := range players {
+	for _, v := range data.Players {
 		fmt.Println(v.Name, "has an Elo of", v.Elo)
 	}
 
 	var output importjson.Players
-	output.Players = players
+	output.Players = data.Players
 	jsonOutput, _ := json.Marshal(output)
 	_ = ioutil.WriteFile("cmd/scoredPlayers.json", jsonOutput, 0644)
 }

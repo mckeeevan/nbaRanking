@@ -18,57 +18,65 @@ type Matchup struct {
 	two int
 }
 
-func pickMatchup(players []importjson.Player, match Matchup, winner bool, winCount int) (Matchup, int) {
-	if winner && winCount < winsAllowed {
+func pickMatchup(data ModelData) (Matchup, int) {
+	if data.Winner && data.WinCount < winsAllowed {
 		// Add one person to winner
-		two := rand.Intn(len(players))
-		for match.one == two || math.Abs(float64(players[match.one].Elo-players[two].Elo)) > 400 {
-			two = rand.Intn(len(players))
+		two := rand.Intn(len(data.Players))
+		for data.Match.one == two || math.Abs(float64(data.Players[data.Match.one].Elo-data.Players[two].Elo)) > 400 {
+			two = rand.Intn(len(data.Players))
 		}
-		match.two = two
-		winCount++
-		return match, winCount
+		data.Match.two = two
+		data.WinCount++
+		return data.Match, data.WinCount
 	}
-	one := rand.Intn(len(players))
-	two := rand.Intn(len(players))
-	for two == one || math.Abs(float64(players[one].Elo-players[two].Elo)) > 400 {
-		two = rand.Intn(len(players))
+	one := rand.Intn(len(data.Players))
+	two := rand.Intn(len(data.Players))
+	for two == one || math.Abs(float64(data.Players[one].Elo-data.Players[two].Elo)) > 400 {
+		two = rand.Intn(len(data.Players))
 	}
 	return Matchup{one, two}, 0
 }
 
-func Random(players []importjson.Player, matchIncoming Matchup, winner bool, winCount int, winChange bool) ([]importjson.Player, Matchup, bool, int, bool) {
-	if winChange {
-		winCount = 0
-	}
-	match, winCount := pickMatchup(players, matchIncoming, winner, winCount)
+type ModelData struct {
+	Players   []importjson.Player
+	Match     Matchup
+	Winner    bool
+	WinCount  int
+	WinChange bool
+}
 
-	displayMatchup(players, match)
+func Random(data ModelData) ModelData {
+	if data.WinChange {
+		data.WinCount = 0
+	}
+	match, winCount := pickMatchup(data)
+
+	displayMatchup(data.Players, match)
 	var pick int
 	fmt.Print("Player 1 or 2: ")
 	fmt.Scanln(&pick)
 
 	if pick == 1 {
-		players[match.one], players[match.two] = elo.Elo(players[match.one], players[match.two], true)
-		fmt.Println("You chose", players[match.one].Name, "as being better than", players[match.two].Name)
-		fmt.Println(players[match.one].Name, "is now ranked", players[match.one].Elo)
-		fmt.Println(players[match.two].Name, "is now ranked", players[match.two].Elo)
+		data.Players[match.one], data.Players[match.two] = elo.Elo(data.Players[match.one], data.Players[match.two], true)
+		fmt.Println("You chose", data.Players[match.one].Name, "as being better than", data.Players[match.two].Name)
+		fmt.Println(data.Players[match.one].Name, "is now ranked", data.Players[match.one].Elo)
+		fmt.Println(data.Players[match.two].Name, "is now ranked", data.Players[match.two].Elo)
 		// fmt.Println(players)
 
-		return players, match, true, winCount, false
+		return ModelData{data.Players, match, true, winCount, false}
 	}
 	if pick == 2 {
-		players[match.one], players[match.two] = elo.Elo(players[match.one], players[match.two], false)
-		fmt.Println("You chose", players[match.two].Name, "as being better than", players[match.one].Name)
-		fmt.Println(players[match.one].Name, "is now ranked", players[match.one].Elo)
-		fmt.Println(players[match.two].Name, "is now ranked", players[match.two].Elo)
-		// fmt.Println(players)
+		data.Players[match.one], data.Players[match.two] = elo.Elo(data.Players[match.one], data.Players[match.two], false)
+		fmt.Println("You chose", data.Players[match.two].Name, "as being better than", data.Players[match.one].Name)
+		fmt.Println(data.Players[match.one].Name, "is now ranked", data.Players[match.one].Elo)
+		fmt.Println(data.Players[match.two].Name, "is now ranked", data.Players[match.two].Elo)
+		// fmt.Println(players)data.
 		match.one = match.two
 
-		return players, match, true, winCount, true
+		return ModelData{data.Players, match, true, winCount, true}
 	}
 
-	return players, match, false, winCount, true
+	return ModelData{data.Players, match, false, winCount, true}
 }
 
 func displayPlayerInfo(player importjson.Player) {
