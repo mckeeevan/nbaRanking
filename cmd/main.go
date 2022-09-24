@@ -20,11 +20,25 @@ func main() {
 	players := importjson.Ranked("cmd/scoredPlayers.json")
 
 	// Import players for the first time
-	// players := intialize(33.0, 10.0)
+	// players := intialize(29.0, 10.0)
 
 	run(players)
 
 }
+
+/*
+
+Matchup winner stays (for X number)
+
+combine season stats
+	Attach these stats to players
+web stuff
+	basic UI
+	Come up with better UI
+	Make better UI
+
+
+*/
 
 func intialize(minutes, games float64) []importjson.Player {
 
@@ -60,7 +74,7 @@ func intialize(minutes, games float64) []importjson.Player {
 	}
 	// players = append([]importjson.Player(nil), players[:5]...)
 
-	return minutesRestrictedPlayers[0:25]
+	return minutesRestrictedPlayers
 
 }
 
