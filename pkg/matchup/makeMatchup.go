@@ -3,7 +3,7 @@ package matchup
 import (
 	"fmt"
 	"math"
-	"math/rand" 
+	"math/rand"
 
 	"main.go/pkg/elo"
 	importjson "main.go/pkg/importJSON"
@@ -16,9 +16,8 @@ func Random(players []importjson.Player) []importjson.Player {
 	for two == one || math.Abs(float64(players[one].Elo-players[two].Elo)) > 400 {
 		two = rand.Intn(len(players))
 	}
-
-	fmt.Println(players[one])
-	fmt.Println(players[two])
+	displayPlayerInfo(players[one])
+	displayPlayerInfo(players[two])
 	var pick int
 	fmt.Print("Player 1 or 2: ")
 	fmt.Scanln(&pick)
@@ -39,4 +38,10 @@ func Random(players []importjson.Player) []importjson.Player {
 	}
 
 	return players
+}
+
+func displayPlayerInfo(player importjson.Player) {
+	fmt.Println(player.Name, "who in 2021-2022 averaged", "Points:", player.Points, "Assists:", player.Assists, "Rebounds:", player.Rebounds, "Blocks:", player.Blocks, "Games Played:", player.GP, "Games Started:", player.GS,
+		"per game.")
+
 }
