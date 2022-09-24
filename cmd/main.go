@@ -13,22 +13,24 @@ import (
 )
 
 func main() {
-	/*
-		data := importjson.Import("cmd/playerlist.json")
-		fmt.Println(data[1])
-	*/
 
-	seasonsData := importjson.ImportSeasons("cmd/playerstats.json")
+	fmt.Println(data[1])
 
-	stuff(seasonsData)
+	rand.Seed(time.Now().UnixNano())
+
+	players := intialize()
+
+	run(players)
 
 }
 
-func stuff(seasonData []importjson.Season) {
+func intialize() []importjson.Player {
 
-	rand.Seed(time.Now().UnixNano())
-	// players := importjson.Ranked("cmd/scoredPlayers.json")
-	players := importjson.Initialize("cmd/players.json")
+	players := importjson.Import("cmd/playerlist.json")
+	seasonData := importjson.ImportSeasons("cmd/playerstats.json")
+
+	//players := importjson.Ranked("cmd/scoredPlayers.json")
+	//players := importjson.Initialize("cmd/players.json")
 
 	for i, j := range players {
 		for _, v := range seasonData {
@@ -46,7 +48,6 @@ func stuff(seasonData []importjson.Season) {
 		}
 
 	}
-	run(players)
 	// players = append([]importjson.Player(nil), players[:5]...)
 
 }
