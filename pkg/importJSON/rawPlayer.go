@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func Import(file string) []RawPlayer {
+func Import(file string) []Player {
 	// Open our jsonFile
 	jsonFile, err := os.Open(file)
 	// if we os.Open returns an error then handle itß
@@ -21,7 +21,7 @@ func Import(file string) []RawPlayer {
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 
 	// we initialize our Users array
-	var players RawPlayers
+	var players Players
 
 	// we unmarshal our byteArray which contains our
 	// jsonFile's content into 'users' which we defined above
@@ -29,9 +29,9 @@ func Import(file string) []RawPlayer {
 
 	// fmt.Println(players)
 
-	var allPlayers []RawPlayer
+	var allPlayers []Player
 
-	allPlayers = append(allPlayers, players.RawPlayers...)
+	allPlayers = append(allPlayers, players.Players...)
 
 	/*
 		for i := range allPlayers {

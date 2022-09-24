@@ -5,7 +5,7 @@ type Players struct {
 }
 
 type Player struct {
-	Name          string `json:"Name"`
+	Name          string `json:"namePlayer"`
 	Team          string `json:"Team"`
 	Elo           int
 	Wins          int
@@ -19,19 +19,6 @@ type Player struct {
 	Assists       float64
 	Steals        float64
 	Blocks        float64
-}
-
-type RawPlayers struct {
-	RawPlayers []RawPlayer `json:"Players"`
-}
-
-type RawPlayer struct {
-	Name          string `json:"namePlayer"`
-	Team          string `json:"Team"`
-	Elo           int
-	Wins          int
-	Loses         int
-	ExpectedScore float64
 }
 
 type Seasons struct {

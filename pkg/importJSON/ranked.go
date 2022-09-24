@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func Initialize(file string) []Player {
+func Ranked(file string) []Player {
 	// Open our jsonFile
 	jsonFile, err := os.Open(file)
 	// if we os.Open returns an error then handle it
@@ -30,18 +30,11 @@ func Initialize(file string) []Player {
 
 	allPlayers = append(allPlayers, players.Players...)
 
-	for i := range allPlayers {
-		allPlayers[i].Elo = 1000
-	}
-
-	var reducedPlayers []Player
-	for i, v := range allPlayers {
-		if v.Team == "Denver Nuggets" {
-			reducedPlayers = append(reducedPlayers, allPlayers[i])
-
+	/*
+		for i := range allPlayers {
+			allPlayers[i].Elo = 1000
 		}
+	*/
 
-	}
-
-	return reducedPlayers
+	return allPlayers
 }

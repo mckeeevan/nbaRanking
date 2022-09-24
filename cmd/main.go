@@ -14,11 +14,13 @@ import (
 
 func main() {
 
-	fmt.Println(data[1])
-
 	rand.Seed(time.Now().UnixNano())
 
-	players := intialize()
+	// reopen ranked players
+	players := importjson.Ranked("cmd/scoredPlayers.json")
+
+	// Import players for the first time
+	//players := intialize()
 
 	run(players)
 
@@ -29,7 +31,6 @@ func intialize() []importjson.Player {
 	players := importjson.Import("cmd/playerlist.json")
 	seasonData := importjson.ImportSeasons("cmd/playerstats.json")
 
-	//players := importjson.Ranked("cmd/scoredPlayers.json")
 	//players := importjson.Initialize("cmd/players.json")
 
 	for i, j := range players {
@@ -45,14 +46,37 @@ func intialize() []importjson.Player {
 				players[i].Minutes = v.Minutes
 
 			}
+			players[i].Elo = 1000
 		}
 
 	}
+	// Only have players with x minutes
+	var minutesRestrictedPlayers []importjson.Player
+
+	for i, v := range players {
+		if v.Minutes > 5 && v.GP > 10 {
+			minutesRestrictedPlayers = append(minutesRestrictedPlayers, players[i])
+		}
+	}
 	// players = append([]importjson.Player(nil), players[:5]...)
+
+	return minutesRestrictedPlayers[0:25]
 
 }
 
 func run(players []importjson.Player) {
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
+	players = matchup.Random(players)
 	players = matchup.Random(players)
 	players = matchup.Random(players)
 	players = matchup.Random(players)
