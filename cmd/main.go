@@ -20,13 +20,13 @@ func main() {
 	players := importjson.Ranked("cmd/scoredPlayers.json")
 
 	// Import players for the first time
-	//players := intialize()
+	// players := intialize(33.0, 10.0)
 
 	run(players)
 
 }
 
-func intialize() []importjson.Player {
+func intialize(minutes, games float64) []importjson.Player {
 
 	players := importjson.Import("cmd/playerlist.json")
 	seasonData := importjson.ImportSeasons("cmd/playerstats.json")
@@ -54,7 +54,7 @@ func intialize() []importjson.Player {
 	var minutesRestrictedPlayers []importjson.Player
 
 	for i, v := range players {
-		if v.Minutes > 5 && v.GP > 10 {
+		if v.Minutes > minutes && v.GP > games {
 			minutesRestrictedPlayers = append(minutesRestrictedPlayers, players[i])
 		}
 	}
