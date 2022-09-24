@@ -1,4 +1,5 @@
-[
+{
+  "Seasons":[
   {
     "slugSeason": "2003-04",
     "slugTeam": "CLE",
@@ -100441,3 +100442,5 @@
     "urlNBAAPI": "https://stats.nba.com/stats/playercareerstats?LeagueID=00&PerMode=PerGame&PlayerID=1630846"
   }
 ]
+
+}

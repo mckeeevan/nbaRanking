@@ -13,6 +13,18 @@ import (
 )
 
 func main() {
+	/*
+		data := importjson.Import("cmd/playerlist.json")
+		fmt.Println(data[1])
+	*/
+
+	data := importjson.ImportSeasons("cmd/playerstats.json")
+	fmt.Println(data[1])
+
+}
+
+func stuff() {
+
 	rand.Seed(time.Now().UnixNano())
 	// players := importjson.Ranked("cmd/scoredPlayers.json")
 	players := importjson.Initialize("cmd/players.json")

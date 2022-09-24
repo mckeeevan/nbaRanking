@@ -1,4 +1,5 @@
-[
+{
+  "Players":[
   {
     "isActive": true,
     "isRookie": false,
@@ -9300,3 +9301,5 @@
     "urlPlayerPhoto": "https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627826.png"
   }
 ]
+
+}

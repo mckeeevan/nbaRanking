@@ -12,3 +12,32 @@ type Player struct {
 	Loses         int
 	ExpectedScore float64
 }
+
+type RawPlayers struct {
+	RawPlayers []RawPlayer `json:"Players"`
+}
+
+type RawPlayer struct {
+	Name          string `json:"namePlayer"`
+	Team          string `json:"Team"`
+	Elo           int
+	Wins          int
+	Loses         int
+	ExpectedScore float64
+}
+
+type Seasons struct {
+	Seasons []Season `json:"Seasons"`
+}
+type Season struct {
+	Seasons  string  `json:"slugSeasons"`
+	Player   string  `json:"namePlayer"`
+	GP       float64 `json:"gp"`
+	GS       float64 `json:"gs"`
+	Minutes  float64 `json:"minutesPerGame"`
+	Rebounds float64 `json:"trebPerGame"`
+	Points   float64 `json:"ptsPerGame"`
+	Assists  float64 `json:"astPerGame"`
+	Steals   float64 `json:"stlPerGame"`
+	Blocks   float64 `json:"blkPerGame"`
+}
