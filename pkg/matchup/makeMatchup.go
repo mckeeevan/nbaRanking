@@ -126,8 +126,7 @@ func changePlayerElos(data ModelData, playerOne, playerTwo int, playerOneWin boo
 }
 
 func displayPlayerInfo(player importjson.Player) {
-	fmt.Println(player.Name, "who in 2021-2022 averaged", "Points:", player.Points, "Assists:", player.Assists, "Rebounds:", player.Rebounds, "Blocks:", player.Blocks, "Games Played:", player.GP, "Games Started:", player.GS,
-		"per game.")
+	fmt.Printf("%25s averaged %5.2f Points %5.2f Assists %5.2f Rebounds %5.2f Blocks and %5.2f Steals over the last three seasons", player.Name, player.Points, player.Assists, player.Rebounds, player.Blocks, player.Steals)
 
 }
 

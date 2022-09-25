@@ -10,10 +10,11 @@ import (
 
 	importjson "main.go/pkg/importJSON"
 	"main.go/pkg/matchup"
+	"main.go/pkg/stats"
 )
 
 const (
-	runs = 50
+	runs = 10
 )
 
 func main() {
@@ -23,8 +24,7 @@ func main() {
 	// seasonData := importjson.ImportSeasons("cmd/playerstats.json")
 
 	// Import players for the first time
-	// 	players := intialize(29.0, 10.0)
-	// stats.CombineYears(seasonData)
+	// players := intialize(29.0, 10.0)
 
 	// reopen ranked players
 	players := importjson.Ranked("cmd/scoredPlayers.json")
@@ -48,13 +48,13 @@ web stuff
 func intialize(minutes, games float64) []importjson.Player {
 
 	players := importjson.Import("cmd/playerlist.json")
-	seasonData := importjson.ImportSeasons("cmd/playerstats.json")
+	seasonData := stats.CombineYears(importjson.ImportSeasons("cmd/playerstats.json"))
 
 	//players := importjson.Initialize("cmd/players.json")
 
 	for i, j := range players {
 		for _, v := range seasonData {
-			if v.Player == j.Name && v.Seasons == "2021-22" {
+			if v.Player == j.Name {
 				players[i].Points = v.Points
 				players[i].Rebounds = v.Rebounds
 				players[i].Assists = v.Assists
@@ -101,7 +101,8 @@ func run(players []importjson.Player) {
 
 	blankLines(4)
 	for _, v := range data.Players {
-		fmt.Println(v.Name, "has an Elo of", v.Elo)
+
+		fmt.Printf("%25s has an elo of %6.0d\n", v.Name, v.Elo)
 	}
 
 	var output importjson.Players
