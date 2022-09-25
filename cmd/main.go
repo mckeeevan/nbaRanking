@@ -12,23 +12,28 @@ import (
 	"main.go/pkg/matchup"
 )
 
-func main() {
+const (
+	runs = 50
+)
 
+func main() {
 	rand.Seed(time.Now().UnixNano())
+
+	// players := importjson.Import("cmd/playerlist.json")
+	// seasonData := importjson.ImportSeasons("cmd/playerstats.json")
+
+	// Import players for the first time
+	// 	players := intialize(29.0, 10.0)
+	// stats.CombineYears(seasonData)
 
 	// reopen ranked players
 	players := importjson.Ranked("cmd/scoredPlayers.json")
-
-	// Import players for the first time
-	// players := intialize(29.0, 10.0)
 
 	run(players)
 
 }
 
 /*
-
-Matchup winner stays (for X number)
 
 combine season stats
 	Attach these stats to players
@@ -79,22 +84,22 @@ func intialize(minutes, games float64) []importjson.Player {
 }
 
 func run(players []importjson.Player) {
+
+	// Make first matchup
 	initial := matchup.ModelData{Players: players, Match: matchup.Matchup{}, Winner: false, WinCount: 0, WinChange: true}
 	data := matchup.Random(initial)
-	for i := 0; i < 20; i++ {
+
+	// How many times to run
+	for i := 0; i < runs; i++ {
 		data = matchup.Random(data)
 	}
-	data = matchup.Random(data)
 	// sort the slice
 	sort.Slice(players, func(i, j int) bool {
 		return players[i].Elo > players[j].Elo
 	})
 	// print everyone
 
-	fmt.Println()
-	fmt.Println()
-	fmt.Println()
-	fmt.Println()
+	blankLines(4)
 	for _, v := range data.Players {
 		fmt.Println(v.Name, "has an Elo of", v.Elo)
 	}
@@ -103,4 +108,11 @@ func run(players []importjson.Player) {
 	output.Players = data.Players
 	jsonOutput, _ := json.Marshal(output)
 	_ = ioutil.WriteFile("cmd/scoredPlayers.json", jsonOutput, 0644)
+}
+
+func blankLines(lines int) {
+	for i := 0; i < lines; i++ {
+		fmt.Println()
+
+	}
 }
