@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	runs = 10
+	runs = 50
 )
 
 func main() {
