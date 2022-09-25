@@ -81,11 +81,9 @@ func intialize(minutes, games float64) []importjson.Player {
 func run(players []importjson.Player) {
 	initial := matchup.ModelData{Players: players, Match: matchup.Matchup{}, Winner: false, WinCount: 0, WinChange: true}
 	data := matchup.Random(initial)
-	data = matchup.Random(data)
-	data = matchup.Random(data)
-	data = matchup.Random(data)
-	data = matchup.Random(data)
-	data = matchup.Random(data)
+	for i := 0; i < 20; i++ {
+		data = matchup.Random(data)
+	}
 	data = matchup.Random(data)
 	// sort the slice
 	sort.Slice(players, func(i, j int) bool {
