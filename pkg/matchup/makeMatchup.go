@@ -24,7 +24,17 @@ type PlayersMatchup struct {
 	playerTwo importjson.Player
 }
 
+func winCheck(winInfo winInfo) bool {
+	if winInfo.winner && winInfo.count < winsAllowed {
+		return true
+	}
+	return false
+}
+
 func pickMatchup(data ModelData) (Matchup, int) {
+
+	// chek to see if there was a winner, and if the winner is allowed another match
+	// are they over the max number of wins in a row
 	if data.Winner && data.WinCount < winsAllowed {
 		// Add one person to winner
 		two := getRandomPlayer(data)
@@ -73,6 +83,7 @@ type ModelData struct {
 	Winner    bool
 	WinCount  int
 	WinChange bool
+	// winInfo   winInfo
 }
 
 func Random(data ModelData) ModelData {
@@ -84,6 +95,12 @@ func Random(data ModelData) ModelData {
 	pick := askWinner()
 
 	return handlePicks(data, pick)
+}
+
+type winInfo struct {
+	winner bool
+	count  int
+	Change bool
 }
 
 func handlePicks(data ModelData, pick int) ModelData {
@@ -134,7 +151,7 @@ func displayMatchup(players []importjson.Player, match Matchup) {
 
 	blankLines(10)
 	displayPlayerInfo(players[match.one])
-	fmt.Println()
+	blankLines(1)
 	displayPlayerInfo(players[match.two])
 	blankLines(3)
 }

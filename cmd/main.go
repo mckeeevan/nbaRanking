@@ -63,11 +63,9 @@ func intialize(minutes, games float64) []importjson.Player {
 				players[i].GS = v.GS
 				players[i].Steals = v.Steals
 				players[i].Minutes = v.Minutes
-
 			}
 			players[i].Elo = 1000
 		}
-
 	}
 	// Only have players with x minutes
 	var minutesRestrictedPlayers []importjson.Player
