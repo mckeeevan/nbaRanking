@@ -10,7 +10,6 @@ import (
 
 	importjson "main.go/pkg/importJSON"
 	"main.go/pkg/matchup"
-	"main.go/pkg/stats"
 )
 
 const (
@@ -19,9 +18,6 @@ const (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-
-	// players := importjson.Import("cmd/playerlist.json")
-	// seasonData := importjson.ImportSeasons("cmd/playerstats.json")
 
 	// Import players for the first time
 	// players := intialize(29.0, 10.0)
@@ -35,20 +31,23 @@ func main() {
 
 /*
 
-combine season stats
-	Attach these stats to players
 web stuff
 	basic UI
 	Come up with better UI
 	Make better UI
 
-
 */
+
+func getInitialData() ([]importjson.Player, []importjson.Season) {
+	players := importjson.Import("cmd/playerlist.json")
+	seasonData := importjson.ImportSeasons("cmd/playerstats.json")
+
+	return players, seasonData
+}
 
 func intialize(minutes, games float64) []importjson.Player {
 
-	players := importjson.Import("cmd/playerlist.json")
-	seasonData := stats.CombineYears(importjson.ImportSeasons("cmd/playerstats.json"))
+	players, seasonData := getInitialData()
 
 	//players := importjson.Initialize("cmd/players.json")
 
@@ -64,21 +63,21 @@ func intialize(minutes, games float64) []importjson.Player {
 				players[i].Steals = v.Steals
 				players[i].Minutes = v.Minutes
 			}
+			// give all players an initial Elo
 			players[i].Elo = 1000
 		}
 	}
 	// Only have players with x minutes
 	var minutesRestrictedPlayers []importjson.Player
 
+	// check for players with two few minutes and games
 	for i, v := range players {
 		if v.Minutes > minutes && v.GP > games {
 			minutesRestrictedPlayers = append(minutesRestrictedPlayers, players[i])
 		}
 	}
-	// players = append([]importjson.Player(nil), players[:5]...)
 
 	return minutesRestrictedPlayers
-
 }
 
 func run(players []importjson.Player) {
@@ -99,7 +98,6 @@ func run(players []importjson.Player) {
 
 	blankLines(4)
 	for _, v := range data.Players {
-
 		fmt.Printf("%25s has an elo of %6.0d\n", v.Name, v.Elo)
 	}
 
@@ -107,6 +105,10 @@ func run(players []importjson.Player) {
 	output.Players = data.Players
 	jsonOutput, _ := json.Marshal(output)
 	_ = ioutil.WriteFile("cmd/scoredPlayers.json", jsonOutput, 0644)
+}
+
+func displayRankedPlayers() {
+
 }
 
 func blankLines(lines int) {
