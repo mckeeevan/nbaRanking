@@ -69,7 +69,6 @@ func combinePlayersAndStats(players []importjson.Player, seasonData []importjson
 			players[i].Elo = 1000
 		}
 	}
-
 	return players
 }
 
@@ -125,6 +124,7 @@ func writeData(data matchup.ModelData, fileName string) {
 	_ = ioutil.WriteFile(fileName, jsonOutput, 0644)
 
 }
+
 func sortPlayers(data matchup.ModelData) matchup.ModelData {
 	// sort the slice
 	sort.Slice(data.Players, func(i, j int) bool {
