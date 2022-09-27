@@ -4,21 +4,22 @@ import (
 	"math/rand"
 	"time"
 
-	"main.go/pkg/initialize"
+	importjson "main.go/pkg/importJSON"
 	"main.go/pkg/model"
 )
+
 func main() {
 
 	// make random seed
 	rand.Seed(time.Now().UnixNano())
 
 	// Import players for the first time
-	players := initialize.Players(29.0, 10.0)
+	// players := initialize.Players(18.0, 25.0)
 
 	// reopen ranked players
-	// players := importjson.Ranked("cmd/scoredPlayers.json")
+	players := importjson.Reimport("cmd/scoredPlayers.json")
 
-	model.Run(players, 5)
+	model.Run(players, 0)
 
 }
 

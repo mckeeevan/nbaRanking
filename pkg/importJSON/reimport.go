@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func Ranked(file string) []Player {
+func Reimport(file string) []Player {
 	// Open our jsonFile
 	jsonFile, err := os.Open(file)
 	// if we os.Open returns an error then handle it
