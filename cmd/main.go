@@ -23,12 +23,8 @@ func main() {
 }
 
 /*
-
 web stuff
 	basic UI
 	Come up with better UI
 	Make better UI
-
 */
-
-

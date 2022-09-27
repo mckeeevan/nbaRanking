@@ -13,15 +13,6 @@ func getInitialData() ([]importjson.Player, []importjson.Season) {
 	return players, seasonData
 }
 
-func Players(minutes, games float64) []importjson.Player {
-
-	players, seasonData := getInitialData()
-
-	players = combinePlayersAndStats(players, seasonData)
-
-	return minuteAndGameRestricted(players, minutes, games)
-
-}
 
 func combinePlayersAndStats(players []importjson.Player, seasonData []importjson.Season) []importjson.Player {
 
