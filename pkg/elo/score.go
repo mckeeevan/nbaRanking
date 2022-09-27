@@ -14,15 +14,15 @@ func Elo(playerOne, playerTwo importjson.Player, playerOneWin bool) (importjson.
 
 	if playerOneWin {
 		// If player one wins move player ones ranking up and player two down
-		playerOne.Elo = int(scoreChange(playerOne, playerOne.Elo, true))
-		playerTwo.Elo = int(scoreChange(playerTwo, playerTwo.Elo, false))
+		playerOne.Elo = int(scoreChange(playerOne, true))
+		playerTwo.Elo = int(scoreChange(playerTwo, false))
 		playerOne.Wins++
 		playerTwo.Loses++
 	}
 	if !playerOneWin {
 		// If player two wins move player two's ranking up and player one down
-		playerOne.Elo = int(scoreChange(playerOne, playerOne.Elo, false))
-		playerTwo.Elo = int(scoreChange(playerTwo, playerTwo.Elo, true))
+		playerOne.Elo = int(scoreChange(playerOne, false))
+		playerTwo.Elo = int(scoreChange(playerTwo, true))
 		playerOne.Loses++
 		playerTwo.Wins++
 	}
