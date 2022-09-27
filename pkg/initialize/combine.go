@@ -1,9 +1,13 @@
 package initialize
 
-import importjson "main.go/pkg/importJSON"
+import (
+	importjson "main.go/pkg/importJSON"
+	"main.go/pkg/stats"
+)
 
 func combinePlayersAndStats(players []importjson.Player, seasonData []importjson.Season) []importjson.Player {
 
+	seasonData = stats.CombineSeasons(seasonData, 3)
 	for i, j := range players {
 		for _, v := range seasonData {
 			if v.Player == j.Name {
