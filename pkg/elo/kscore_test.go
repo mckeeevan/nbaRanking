@@ -15,4 +15,28 @@ func TestKRate(t *testing.T) {
 	if got != want {
 		t.Errorf("got %q, wanted %q", got, want)
 	}
+
+	player.Wins = 10
+	got = kRate(player)
+	want = 64
+
+	if got != want {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+
+	player.Wins = 20
+	got = kRate(player)
+	want = 45
+
+	if got != want {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+
+	player.Wins = 30
+	got = kRate(player)
+	want = 32
+
+	if got != want {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
 }

@@ -15,8 +15,3 @@ func kRate(player importjson.Player) int {
 	}
 	return 32
 }
-
-func add(x, y int) int {
-
-	return x + y
-}

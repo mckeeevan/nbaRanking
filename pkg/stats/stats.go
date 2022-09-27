@@ -1,8 +1,6 @@
 package stats
 
 import (
-	"fmt"
-
 	importjson "main.go/pkg/importJSON"
 )
 
@@ -24,7 +22,6 @@ func CombineSeasons(seasons []importjson.Season, numSeasons int) []importjson.Se
 	seasons = reduceSeasons(seasons, mostRecentSeasons)
 	//
 	playerInfo := addAllPlayers(seasons, allPlayers)
-	fmt.Println(playerInfo)
 	return playerInfo
 }
 
@@ -52,7 +49,6 @@ func reduceSeasons(seasons []importjson.Season, years []string) []importjson.Sea
 			}
 		}
 	}
-	fmt.Println(seasonsFromYears)
 	return seasonsFromYears
 }
 
