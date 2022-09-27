@@ -1,8 +1,6 @@
 package elo
 
 import (
-	"math"
-
 	importjson "main.go/pkg/importJSON"
 )
 
@@ -30,20 +28,4 @@ func Elo(playerOne, playerTwo importjson.Player, playerOneWin bool) (importjson.
 	}
 	// Return both
 	return playerOne, playerTwo
-}
-
-func winOdds(playerOne, playerTwo importjson.Player) (importjson.Player, importjson.Player) {
-	// Update each players expected score
-	playerOne.ExpectedScore = 1.0 / (1.0 + math.Pow(10, (float64(playerTwo.Elo)-float64(playerOne.Elo))/400.0))
-	playerTwo.ExpectedScore = 1.0 / (1.0 + math.Pow(10, (float64(playerOne.Elo)-float64(playerTwo.Elo))/400.0))
-	return playerOne, playerTwo
-}
-
-func scoreChange(player importjson.Player, rating int, win bool) float64 {
-	if win {
-		// if they win add to their score
-		return float64(rating) + float64(kRate(player))*(1.0-player.ExpectedScore)
-	}
-	// if they lose subract from their score
-	return float64(rating) + float64(kRate(player))*(0.0-player.ExpectedScore)
 }
