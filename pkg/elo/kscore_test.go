@@ -8,35 +8,24 @@ import (
 
 func TestKRate(t *testing.T) {
 
+	testData := []struct {
+		description string
+		input       int
+		expect      int
+	}{
+		{"0 Games", 0, 128},
+		{"10 Games", 10, 64},
+		{"20 Games", 20, 45},
+		{"30 Games", 30, 32},
+		{"50 Games", 50, 32},
+	}
+
 	player := importjson.Player{Name: "Test", Wins: 0, Loses: 0}
-	got := kRate(player)
-	want := 128
-
-	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
-	}
-
-	player.Wins = 10
-	got = kRate(player)
-	want = 64
-
-	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
-	}
-
-	player.Wins = 20
-	got = kRate(player)
-	want = 45
-
-	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
-	}
-
-	player.Wins = 30
-	got = kRate(player)
-	want = 32
-
-	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
+	for i, v := range testData {
+		player.Loses = testData[i].input
+		got := kRate(player)
+		if got != v.expect {
+			t.Errorf("input %s got %d, wanted %d", v.description, got, v.expect)
+		}
 	}
 }
