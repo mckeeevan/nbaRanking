@@ -10,7 +10,7 @@ func TestUpdatePlayerOneWin(t *testing.T) {
 
 	playerOne := importjson.Player{Name: "TestOne", Wins: 0, Loses: 0, Elo: 1000}
 	playerTwo := importjson.Player{Name: "TestTwo", Wins: 0, Loses: 0, Elo: 1000}
-	playerOne, playerTwo = winOdds(playerOne, playerTwo)
+
 	gotPlayerOne, gotPlayerTwo := updatePlayerOneWin(playerOne, playerTwo)
 	wantPlayerOne := importjson.Player{Name: "TestOne", Wins: 1, Loses: 0, Elo: 1064, ExpectedScore: .5}
 	wantPlayerTwo := importjson.Player{Name: "TestTwo", Wins: 0, Loses: 1, Elo: 936, ExpectedScore: .5}
@@ -37,7 +37,7 @@ func TestUpdatePlayerTwoWin(t *testing.T) {
 
 	playerOne := importjson.Player{Name: "TestOne", Wins: 0, Loses: 0, Elo: 1000}
 	playerTwo := importjson.Player{Name: "TestTwo", Wins: 0, Loses: 0, Elo: 1000}
-	playerOne, playerTwo = winOdds(playerOne, playerTwo)
+
 	gotPlayerOne, gotPlayerTwo := updatePlayerTwoWin(playerOne, playerTwo)
 	wantPlayerOne := importjson.Player{Name: "TestOne", Wins: 0, Loses: 1, Elo: 936, ExpectedScore: .5}
 	wantPlayerTwo := importjson.Player{Name: "TestTwo", Wins: 1, Loses: 0, Elo: 1064, ExpectedScore: .5}
