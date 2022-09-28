@@ -19,11 +19,11 @@ func Elo(playerOne, playerTwo importjson.Player, playerOneWin bool) (importjson.
 }
 
 func checkForElo(player importjson.Player) importjson.Player {
-	if player.Elo == 0 && player.Wins+player.Loses == 0 {
+	if player.Wins+player.Loses == 0 {
 		player.Elo = 1000
 		return player
 	}
-	if player.Elo >= 0 {
+	if player.Elo <= 0 {
 		player.Elo = 1
 		return player
 	}
