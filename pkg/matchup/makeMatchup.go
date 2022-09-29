@@ -11,6 +11,7 @@ func pickMatchup(data ModelData) (Matchup, int) {
 
 	// check to see if there was a winner, and if the winner is allowed another match
 	// are they over the max number of wins in a row
+	// if they are allowed return true
 
 	if winCheck(winInfo) {
 		// Add one person to winner
