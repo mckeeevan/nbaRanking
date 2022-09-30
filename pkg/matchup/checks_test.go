@@ -38,7 +38,8 @@ func TestValidMatchCheck(t *testing.T) {
 	}{
 		{"Same Player", importjson.Player{Name: "One"}, importjson.Player{Name: "One"}, true},
 		{"Different Players", importjson.Player{Name: "One"}, importjson.Player{Name: "Two"}, false},
-		{"Different Players, two far apart elo", importjson.Player{Name: "One", Elo: 1000}, importjson.Player{Name: "One", Elo: 2000}, true},
+		{"Different Players, too far apart elo", importjson.Player{Name: "One", Elo: 1000}, importjson.Player{Name: "One", Elo: 2000}, true},
+		{"Same Player, too far apart elo", importjson.Player{Name: "One", Elo: 1000}, importjson.Player{Name: "One", Elo: 2000}, true},
 	}
 	for _, v := range testData {
 
