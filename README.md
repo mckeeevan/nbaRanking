@@ -1,2 +1,2 @@
 # nbaRanking
-A program to rank all nba players.
+A program to rank all NBA players.
