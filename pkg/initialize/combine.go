@@ -14,8 +14,6 @@ func combinePlayersAndStats(players []importjson.Player, seasonData []importjson
 				players = applyStats(players, v, i)
 
 			}
-			// give all players an initial Elo
-			players[i].Elo = 1000
 		}
 	}
 	return players
@@ -32,3 +30,5 @@ func applyStats(players []importjson.Player, v importjson.Season, i int) []impor
 	players[i].Minutes = v.Minutes
 	return players
 }
+
+// function to add two
